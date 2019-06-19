@@ -10,6 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@azure/service-bus": "^1.0.2"
+    "@azure/ms-rest-nodeauth": "^2.0.2",
+    "@azure/service-bus": "^1.0.2",
+    "express": "^4.17.1",
+    "ms-rest-azure": "^2.6.0"
   }
 }
