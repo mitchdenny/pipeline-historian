@@ -11,15 +11,12 @@ auth.loginWithVmMSI({
     const queue = client.createQueueClient("build-completed");
     const receiver = queue.createReceiver(sb.ReceiveMode.peekLock);
 
-    let lastRun = null;
-
     receiver.registerMessageHandler(
         (message) => {
             try {
                 const resource = message.body.resource;
                 const definition = resource.definition;
                 const id = resource.id;
-                lastRun = resource;
                 console.log(`${resource.status}: ${definition.name} / ${id} (${resource.sourceGetVersion})`);
             } catch {
                 console.log("Boom!");
@@ -30,21 +27,4 @@ auth.loginWithVmMSI({
             receiver.close();
         }
     );
-
-    var express = require("express");
-    var app = express();
-
-    app.param("someitem", (req, resp, next, id) => {
-        console.log("Processing someitem");
-        next();
-    });
-
-    app.get("/last-run/:someitem", (req, res) => {
-        console.log(req.params.someitem);
-        res.send(JSON.stringify(lastRun));
-        res.end();
-    });
-
-    app.listen(9000);
 });
-
