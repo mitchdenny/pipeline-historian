@@ -3,11 +3,9 @@ var http = require("http");
 var auth = require("@azure/ms-rest-nodeauth");
 
 auth.loginWithVmMSI({
-    resource: "https://servicebus.azure.net"
+    resource: "https://servicebus.azure.net/",
 }).then((credentials) => {
-    // const connectionString = process.env.SB_CONNECTION_STRING;
-    // const client = sb.ServiceBusClient.createFromConnectionString(connectionString);
-    const client = sb.ServiceBusClient.createFromAadTokenCredentials("midenn-pipeline-historian.servicebus.windows.net", credentials);
+    const client = sb.ServiceBusClient.createFromAadTokenCredentials("midenn-pipeline-historian.servicebus.windows.net", credentials, {});
     const queue = client.createQueueClient("build-completed");
     const receiver = queue.createReceiver(sb.ReceiveMode.peekLock);
 
