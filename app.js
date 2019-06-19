@@ -27,4 +27,7 @@ auth.loginWithVmMSI({
             receiver.close();
         }
     );
+},
+(err) => {
+    console.log(err);
 });
